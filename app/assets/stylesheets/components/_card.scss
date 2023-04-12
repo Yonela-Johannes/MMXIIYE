@@ -61,26 +61,6 @@
   }
 }
 
-
-.card-task-stat {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: $accent-color;
-  border-radius: 10px;
-  width: 237px;
-  height: 81px;
-  padding: 5px;
-  .text-large {
-    font-size:32px;
-    text-align: center;
-  }
-  p {
-    margin:0px;
-  }
-}
-
 .dashboard {
   display:flex;
   flex-direction: row;
@@ -91,7 +71,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: $light-green;
+  background-color: #DBC7BE;
   justify-content: flex-start;
   border: none;
   border-radius: 15px;

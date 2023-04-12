@@ -10,7 +10,6 @@
       <%= f.input :password,
                   required: false,
                   input_html: { autocomplete: "current-password" } %>
-      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
     </div>
 
     <div class="form-actions">
@@ -19,4 +18,10 @@
   <% end %>
   <br>
   <%= render "devise/shared/links"%>
+  <br>
+  <div class="default">
+  <p class="details-info">If you do not want to create an account. You can use the below default account to login</p>
+  <p>Email: jane@test.com</p>
+  <p>Password: 123456</p>
+  </div>
 </div>

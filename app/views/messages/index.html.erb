@@ -1,15 +1,9 @@
-<div class="container chat-container"
+<div class="container"
   data-controller="event-subscription"
   data-event-subscription-event-id-value="<%= @event.id %>"
 >
-  <div>
-    <h1 class="page-title mb-5"><%= @event.name %></h1>
-    <%= link_to "overview    |   ", event_path(@event), class: "sub-nav-link"%>
-    <%= link_to "tasks    |   ", event_tasks_path(@event), class: "sub-nav-link"%>
-    <%= link_to "expenses    |   ", event_expenses_path(@event), class: "sub-nav-link"%>
-    <%= link_to "guests     |   ", event_guests_path(@event), class: "sub-nav-link"%>
-    <%= link_to "chat", event_messages_path(@event), class: "sub-nav-link", id: "this-page"%>
-  </div>
+  <h1>Hello <%= current_user.first_name%>!</h1>
+    <%= render 'shared/subnav'  %>
   <div class="chatroom">
     <div class="chat">
         <div class="messages" data-event-subscription-target="messages">

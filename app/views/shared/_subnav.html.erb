@@ -1,0 +1,26 @@
+    <div class="subnav">
+        <div class="sub-nav-container">
+          <ul class="sub-nav-list">
+            <% if user_signed_in? %>
+            <li>
+                <%= link_to "Event Dashboard", event_path(@event), class: "" %>
+            </li>
+            <li>
+              <%= link_to "tasks", event_tasks_path(@event), class: "" %>
+            </li>
+            <li>
+               <%= link_to "expenses", event_expenses_path(@event), class: "" %>
+            </li>
+            <li>
+              <%= link_to "guests", event_guests_path(@event), class: "" %>
+            </li>
+            <li>
+                <%= link_to "chat", event_messages_path(@event), class: ""%>
+            </li>
+            <% else %>
+              <li class="nav-item active">
+              </li>
+            <% end %>
+          </ul>
+        </div>
+    </div>

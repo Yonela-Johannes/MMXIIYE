@@ -1,28 +1,53 @@
-.input {
+.input, input, select, textarea {
   width: 100%;
   padding: 10px 15px;
-  border: 1px solid $primary-color;
-  border-radius: $border-radius;
-  background-color: $light-green;
+  border: none;
+  border-radius: none;
+  background-color: white;
+  cursor: pointer;
+  margin: 5px 0;
+  border-bottom: 1px solid #95ADB6;
+  font-size: 16px;
+  transition: .2s ease-in;
+  opacity: 0.7;
+  &:hover{
+    opacity: 1;
+  }
 }
 
-.input::placeholder{
-  color: $primary-color;
+
+
+input::placeholder{
   padding: 10px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
-.input:focus{
-  border: 1px solid $secondary-color;
+.input:focus, input:focus, select:focus, textarea:focus{
+  border: none;
   outline: none;
 }
 
 .input-container{
-  width: 500px;
+  padding: 20px;
   margin: auto auto;
-  border: $border;
-  padding: $container-padding;
-  border-radius: $border-radius;
+  width: 500px;
+  border-radius: 5px;
+  label{
+    font-size: 15px;
+  }
+  a{
+    font-size: 16px;
+    color: black;
+    border: 1px solid #FF7F11;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    transition: .2s ease-in;
+    opacity: 0.7;
+    &:hover{
+      opacity: 1;
+      background-color: #FF7F11;
+    }
+  }
 }
 
 .flex-inputs {
@@ -48,16 +73,6 @@
   border-radius: 5px;
   background-color: white;
 }
-
-select{
-  border: none;
-  outline: none;
-  width: 100%;
-  padding-left: 5px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
 .add-container{
   display: flex;
   width: 60%;
@@ -77,4 +92,22 @@ input.add{
   cursor: pointer;
   color: white;
   border-radius: 4px;
+}
+
+
+fieldset {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-block-start: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  padding-block-end: 0;
+  min-inline-size: min-content;
+  border-width: 0;
+  border-style: none;
+  border-color: none;
+  border-image: none;
 }

@@ -1,60 +1,25 @@
 <div class="container">
-
   <h1 class="page-title"><%= @event.name %></h1>
-  <div mb-5>
-    <%= link_to "overview    |   ", event_path(@event), class: "sub-nav-link"%>
-    <%= link_to "tasks    |   ", event_tasks_path(@event), class: "sub-nav-link", id: "this-page"%>
-    <%= link_to "expenses    |   ", event_expenses_path(@event), class: "sub-nav-link"%>
-    <%= link_to "guests     |   ", event_guests_path(@event), class: "sub-nav-link"%>
-    <%= link_to "chat", event_messages_path(@event), class: "sub-nav-link"%>
-  </div>
-
-  <div class="modal fade" id="addTask" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addTaskLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addTaskLabel">New task</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <%= simple_form_for [@event, @task] do |f| %>
-            <%= f.input :name %>
-            <%= f.input :description %>
-            <%= f.input :category_list, collection: [:Catering, :Bar, :Entertainment, :Decor, :Venue, :Services, :Transport, :Other], label: "Category" %>
-            <%= f.input :due_date, as: :string, input_html: { data: { controller: "flatpickr" } } %>
-            <p class="mb-2">Assignee</p>
-            <%= select_tag :user_id, options_from_collection_for_select(@collaborators, 'id', 'first_name' ), label: "Assignee", class:"form-control" %>
-            <br>
-            <%= f.button :button, "Add task", class:"btn btn-action" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="task-stats d-flex justify-content-between mt-5 mb-5">
+    <%= render 'shared/subnav'  %>
+  <div class="tasks">
     <div class="card-task-stat">
-      <p class="text-white text-center mb-0">Completed Tasks</p>
-      <p class="text-white text-center text-large"><%= @done_tasks.count %></p>
+      <p>Completed Tasks</p>
+      <p><%= @done_tasks.count %></p>
     </div>
     <div class="card-task-stat">
-      <p class="text-white text-center mb-0">Incomplete Tasks</p>
-      <p class="text-white text-center text-large"><%= @incomplete_tasks.count %></p>
+      <p>Incomplete Tasks</p>
+      <p><%= @incomplete_tasks.count %></p>
     </div>
     <div class="card-task-stat">
-      <p class="text-white text-center mb-0">Overdue Tasks</p>
-      <p class="text-white text-center text-large"><%= @overdue_tasks.count %></p>
+      <p>Overdue Tasks</p>
+      <p><%= @overdue_tasks.count %></p>
     </div>
     <div class="card-task-stat">
-      <p class="text-white text-center mb-0">Total Tasks</p>
-      <p class="text-white text-center text-large"><%= @tasks.count %></p>
+      <p>Total Tasks</p>
+      <p><%= @tasks.count %></p>
     </div>
   </div>
-
-  <div class="kanban-actions">
-  </div>
-
-  <div class="kanban d-flex mt-4">
+  <div class="kanban">
     <div class="kanban-column">
       <h3 mb-4>To Do</h3>
       <div class="cards-task">
@@ -62,7 +27,6 @@
           <%= render "task_infos", task: task %>
         <% end %>
       </div>
-      <button type="button" class="btn btn-secondary align-center mt-4" data-bs-toggle="modal" data-bs-target="#addTask"> + Add task </button>
     </div>
     <div class="kanban-column">
       <h3 mb-4>Doing</h3>
@@ -79,6 +43,26 @@
           <%= render "task_infos", task: task %>
         <% end %>
       </div>
+    </div>
+  </div>
+
+  <div class="input-container" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addTaskLabel" aria-hidden="true">
+      <h2>New task</h2>
+      <%= simple_form_for [@event, @task] do |f| %>
+      <div class="flex-inputs">
+        <%= f.input :name %>
+      </div>
+        <%= f.input :description %>
+      <div class="flex-inputs">
+        <%= f.input :category_list, collection: [:Catering, :Bar, :Entertainment, :Decor, :Venue, :Services, :Transport, :Other], label: "Category" %>
+        <%= f.input :due_date, as: :string, input_html: { data: { controller: "flatpickr" } } %>
+      </div>
+      <div class="flex-inputs">
+      </div>
+        <p class="mb-2">Assignee</p>
+        <%= select_tag :user_id, options_from_collection_for_select(@collaborators, 'id', 'first_name' ), label: "Assignee", class:"form-control" %>
+        <%= f.button :button, "Add task", class:"btn btn-action" %>
+      <% end %>
     </div>
   </div>
 </div>

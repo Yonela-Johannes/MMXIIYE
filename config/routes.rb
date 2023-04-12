@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'sass/home'
   devise_for :users
   root to: "pages#home"
   patch '/events/:event_id/mark_as_done/:id', to: 'tasks#mark_as_done', as: 'mark_as_done'

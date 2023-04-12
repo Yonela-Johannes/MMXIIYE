@@ -1,11 +1,13 @@
 .application-container {
-  padding-top: 130px;
+  padding-top: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.container-standard {
-  margin-left: 155px;
-  margin-right: 155px;
-  margin-bottom: 50px;
+.container{
+  width: 80%;
 }
 
 .user-container {
@@ -31,5 +33,11 @@
 .calendar-notes {
   display: flex;
   flex-direction: column;
+}
 
+.notes-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
 }

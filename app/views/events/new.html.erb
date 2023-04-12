@@ -1,6 +1,6 @@
 <div class="container">
   <div class="input-container">
-    <h2>Create New Event</h2>
+    <h2>New Event</h2>
     <%= simple_form_for(@event) do |f| %>
           <%= f.input :name, label: "Event Name" %>
       <%= f.input :description, label: "Event Description" %>
@@ -33,7 +33,6 @@
         <%= f.input :total_budget, label: "Budget" %>
       </div>
       <%= f.input :photo, as: :file, input_html: {  data: { photo_preview_target: "input", action:"change->photo-preview#displayPreview" }}, label: 'Upload file'%>
-      <%= f.input :pinterest_board, label: "Link to pinterest board" %>
       <%= f.button :button, "Create Event", class: "btn btn-secondary", label: false  %>
     <% end %>
   </div>

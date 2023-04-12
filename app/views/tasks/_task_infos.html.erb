@@ -2,40 +2,29 @@
   <div class="card-task-showpage">
     <div data-edit-task-target="infos">
       <h5 class="mt-2 mb-0"><%= task.name.capitalize %></h5>
-      <%= cl_image_tag task.users.map { |user| user.photo.key}, class: "avatar-tasks" %>
+        <%= cl_image_tag task.users.map { |user| user.photo.key ? user.photo.key : current_user.email }, class: "avatar-tasks" %>
       <p><em><%= task.description %></em></p>
       <p class="category"><%= task.category_list %></p>
       <p class="date mb-0"><%= task.due_date.strftime("%d %B %Y") %></p>
-        <div class="text-end">
-          <% if task.status != "done"%>
-            <%= link_to mark_as_done_path(@event,task),data: {turbo_method: :patch} do %>
-              <i class="fa-sharp fa-regular fa-circle-check fa-lg ml-2" data-toggle="tooltip" data-placement="top" title="Mark as done"></i>
-            <% end %>
-          <% end %>
-          <i class="fa-solid fa-pen fa-sm ml-2" data-action="click->edit-task#displayForm" data-toggle="tooltip" data-placement="top" title="Edit task"></i>
-          <%= link_to(event_task_path(@event, task), class: "task", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}) do%>
-            <i class="fa-solid fa-trash fa-sm ml-2 text-end" data-toggle="tooltip" data-placement="top" title="Delete task"></i>
-          <% end %>
-        </div>
+        <%= simple_form_for [@event, task],
+        html: {
+          class: 'd-none',
+          data: {
+            edit_task_target: 'form',
+            # action: 'submit->edit-task#update'
+          },
+          method: :patch
+        } do |f|
+        %>
+          <%= f.input :status, collection: [:to_do, :doing, :done], label: false %>
+          <br>
+          <%= f.submit "move task", class:"task-btn" %>
+      <% end %>
+      <div class="text-end">
+        <%= link_to(event_task_path(@event, task), class: "task", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}) do%>
+          <i class="fa-solid fa-trash fa-sm ml-2 text-end" data-toggle="tooltip" data-placement="top" title="Delete task"></i>
+        <% end %>
+      </div>
     </div>
-    <%= simple_form_for [@event, task],
-    html: {
-      class: 'd-none',
-      data: {
-        edit_task_target: 'form',
-        # action: 'submit->edit-task#update'
-      },
-      method: :patch
-    } do |f|
-    %>
-      <%= f.input :name, as: :text, label: false %>
-      <%= f.input :description,label: false  %>
-      <%= f.input :category_list, collection: [:Catering, :Bar, :Entertainment, :Decor, :Venue, :Services, :Transport, :Other], label: false %>
-      <%= f.input :due_date, as: :string, input_html: { data: { controller: "flatpickr" } },label: false  %>
-      <%= f.input :status, collection: [:to_do, :doing, :done], label: false %>
-      <%= select_tag :user_id, options_from_collection_for_select(@collaborators, 'id', 'first_name' ), label: false, class:"form-control" %>
-      <br>
-      <%= f.submit "Update task", class:"btn btn-action" %>
-  <% end %>
   </div>
 </div>

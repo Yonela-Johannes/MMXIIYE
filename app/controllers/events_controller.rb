@@ -12,7 +12,6 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @collaboration = Collaboration.new(event: @event, user: current_user)
-
     if @event.save && @collaboration.save
       redirect_to event_path @event, notice: "Event was successfully created." # please could we redicrect to @event page if an event is successfully created?
     else
@@ -33,15 +32,12 @@ class EventsController < ApplicationController
 
     categories = ["Catering", "Bar", "Entertainment", "Decor", "Venue", "Services", "Transport", "Other"]
 
-    @pie_chart_expenses = []
-    categories.each do |category|
-      @pie_chart_expenses << [ category, @expenses.tagged_with(category).sum(:amount_spent) ] if @expenses.tagged_with(category).sum(:amount_spent).positive?
-    end
+    @pie_chart_expenses = @expenses.sum(:amount_spent) if @expenses.sum(:amount_spent).positive?
+
   end
 
   def update
     @event = Event.find(event_params)
-    raise
     event.update(event_params)
     respond_to do |format|
       format.html { redirect_to event_path(event) }

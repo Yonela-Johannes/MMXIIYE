@@ -4,7 +4,6 @@
 @import "config/bootstrap_variables";
 @import "simple_calendar";
 // External libraries
-@import "bootstrap/scss/bootstrap";
 @import "font-awesome";
 
 // Your CSS partials
@@ -13,12 +12,13 @@
 @import "components/index";
 @import "pages/index";
 
+
 a {
   text-decoration: none;
 }
 
 .page-title {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .h2-light {

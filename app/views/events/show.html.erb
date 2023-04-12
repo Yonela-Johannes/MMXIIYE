@@ -1,14 +1,8 @@
-<div class="container-standard">
+<div class="container">
   <h1 class="page-title"><%= @event.name %></h1>
-    <div class="mb-5">
-    <%= link_to "overview    |   ", event_path(@event), class: "sub-nav-link", id: "this-page"%>
-    <%= link_to "tasks    |   ", event_tasks_path(@event), class: "sub-nav-link"%>
-    <%= link_to "expenses    |   ", event_expenses_path(@event), class: "sub-nav-link"%>
-    <%= link_to "guests     |   ", event_guests_path(@event), class: "sub-nav-link"%>
-    <%= link_to "chat", event_messages_path(@event), class: "sub-nav-link"%>
-  </div>
+  <%= render 'shared/subnav'  %>
   <div class="event-dashboard">
-      <div class="d-flex flex-column">
+      <div class="">
         <div class="dashboard-card" id="dashboard-card-details">
           <h2>details</h2>
           <div class="event-dash-card">
@@ -50,15 +44,22 @@
       <div class="d-flex flex-column">
         <%= link_to event_expenses_path(@event) do %>
           <div class="dashboard-card">
-            <h2>expenses</h2>
-            <%= pie_chart(@pie_chart_expenses, donut: true, legend: "top", colors: ["#C6A4D7", "#FFC65A", "#ABCB98", "rgba(230, 126, 34, 0.6)", "#0D6EFD", "#D59E9E", "#CCCCCC", "white", ]) %>
+            <h2>Total expense</h2>
+            <% if @expenses.length > 0 %>
+            <p>R <%= @pie_chart_expenses %></p>
+            <% else %>
+            <p>No Expenses<p>
+            <% end %>
           </div>
-        <% end %>
-
+          <% end %>
         <%= link_to event_guests_path(@event) do %>
           <div class="dashboard-card">
             <h2>guests</h2>
-            <%= pie_chart @event.guests.group(:invitation_status).count, donut: true, legend: "top", colors: ["#C6A4D7", "#FFC65A", "#ABCB98", "rgba(230, 126, 34, 0.6)", "#0D6EFD", "#D59E9E", "#CCCCCC", "white", ] %>
+            <% if @event.guests.count > 0 %>
+            <% @event.guests.map do | guest | %>
+              <p class="name"><%= guest.first_name %> <%= guest.last_name %></p>
+              <% end %>
+            <% end %>
           </div>
         <% end %>
       </div>
@@ -80,7 +81,7 @@
                   <div class="card-task event-task">
                       <div class="head">
                         <p class="name"><%= task.name %></p>
-                        <p><%= cl_image_tag task.users.map { |user| user.photo.key}, class: "event-avatar" %></p>
+                        <p><%= cl_image_tag task.users.map { |user| user.photo.key ? user.photo.key : ""}, class: "event-avatar" %></p>
                       </div>
                       <p class="status"><%= task.status.humanize %></p>
                   </div>
@@ -90,7 +91,7 @@
                     <div class="card-task event-task">
                         <div class="head">
                           <p class="name"><%= task.name %></p>
-                          <p><%= cl_image_tag task.users.map { |user| user.photo.key}, class: "event-avatar" %></p>
+                          <p><%= cl_image_tag task.users.map { |user| user.photo.key ? user.photo.key : ""}, class: "event-avatar" %></p>
                         </div>
                         <p class="status"><%= task.status.humanize %></p>
                     </div>
@@ -99,12 +100,6 @@
               </div>
             </div>
           <% end %>
-
-
-          <div class="dashboard-card", id="dashboard-card-mood", style="width: 450px">
-            <h2>mood board</h2>
-            <a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="400" data-pin-scale-width="320" data-turbo="false" data-controller="pin" href="<%=@event.pinterest_board%>"></a>
-          </div>
         </div>
     </div>
   </div>

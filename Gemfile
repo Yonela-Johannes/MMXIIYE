@@ -77,7 +77,7 @@ group :test do
 end
 
 gem "devise"
-gem "chartkick"
+gem 'chartkick', github: 'ankane/chartkick', branch: 'edge'
 
 gem "cloudinary"
 
